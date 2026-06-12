@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Akash Goyal — Flutter Developer</title>
-<meta name="description" content="Portfolio of Akash Goyal, Flutter Developer — crafting beautiful cross-platform mobile apps. Cartoon edition!" />
+<meta name="description" content="Portfolio of Akash Goyal, Flutter Developer — crafting beautiful cross-platform mobile apps." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -474,6 +474,7 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="journey.html">🏍️ Resume Ride</a></li>
       <li><a href="#contact" class="nav-cta">Hire Me 🎯</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -960,7 +961,7 @@ const counterObserver = new IntersectionObserver((entries) => {
       if (cur < target) requestAnimationFrame(tick);
     };
     tick();
-    counterObserver.unobserve(el);
+    counterObserver.unobserve(e.target);
   });
 }, { threshold: 0.6 });
 document.querySelectorAll("[data-count]").forEach((el) => counterObserver.observe(el));
