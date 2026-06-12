@@ -4,188 +4,356 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Resume Ride 🏍️ — Akash Goyal</title>
-<meta name="description" content="Drive through Akash Goyal's resume! Use arrow keys to ride the bike past resume boards." />
+<meta name="description" content="Drive through Akash Goyal's resume! Use arrow keys to ride past resume billboards." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --ink: #1a1a1a;
+  --pink: #ff2975;
+  --orange: #ff8c42;
+  --cyan: #22d3ee;
   --yellow: #ffd23f;
-  --pink: #ff6b9d;
-  --blue: #4da6ff;
-  --green: #4ecb71;
-  --card: #ffffff;
-  --border: 3px solid var(--ink);
+  --text: #eef1fb;
+  --muted: #b9c0d8;
+  --glass: rgba(14, 17, 36, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.16);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 body {
-  font-family: "Nunito", sans-serif; color: var(--ink); user-select: none;
-  background: linear-gradient(#7ec8ff 0%, #b7e0ff 30%, #fff3c4 38%, #fff3c4 38.5%, #7fcf8b 39%, #5fb86e 100%);
-  touch-action: none;
+  font-family: "Inter", sans-serif; color: var(--text); user-select: none; touch-action: none;
+  background:
+    linear-gradient(180deg, #10153a 0%, #2c2566 22%, #74357f 32%, #c4538a 38%, #ff9a62 43%, #1d2737 43.2%, #151d29 100%);
 }
-h1, h2, h3, .btn { font-family: "Baloo 2", cursive; }
+h1, h2, h3 { font-family: "Sora", sans-serif; }
 
-/* ====== Scenery ====== */
+/* ====== Stars & atmosphere ====== */
+.stars {
+  position: fixed; inset: 0 0 60vh 0; pointer-events: none;
+  background-image:
+    radial-gradient(1.6px 1.6px at 12% 18%, #fff 99%, transparent),
+    radial-gradient(1.2px 1.2px at 28% 8%, rgba(255,255,255,0.9) 99%, transparent),
+    radial-gradient(1.8px 1.8px at 44% 22%, rgba(255,255,255,0.8) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 61% 11%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 75% 24%, rgba(255,255,255,0.85) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 88% 7%, #fff 99%, transparent),
+    radial-gradient(1.4px 1.4px at 53% 4%, rgba(255,255,255,0.8) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 8% 32%, rgba(255,255,255,0.7) 99%, transparent),
+    radial-gradient(1.6px 1.6px at 94% 28%, rgba(255,255,255,0.75) 99%, transparent);
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: 0.65; } to { opacity: 1; } }
 .sun {
-  position: fixed; top: 7vh; right: 10vw; width: 90px; height: 90px; border-radius: 50%;
-  background: #ffd23f; border: var(--border); box-shadow: 5px 5px 0 rgba(26, 26, 26, 0.25);
-  animation: sunPulse 5s ease-in-out infinite alternate;
+  position: fixed; top: 24vh; left: 50%; transform: translateX(-50%);
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #ffe9b0 0%, #ffb46a 45%, #ff5e8a 75%, rgba(255, 94, 138, 0) 100%);
+  filter: blur(2px); opacity: 0.95; pointer-events: none;
 }
-@keyframes sunPulse { from { transform: scale(1); } to { transform: scale(1.07); } }
-.cloud { position: fixed; font-size: 3.4rem; opacity: 0.95; animation: drift linear infinite; }
-.c1 { top: 8vh; animation-duration: 60s; }
-.c2 { top: 16vh; font-size: 2.6rem; animation-duration: 80s; animation-delay: -30s; }
-.c3 { top: 4vh; font-size: 2.2rem; animation-duration: 70s; animation-delay: -50s; }
-@keyframes drift { from { left: 105vw; } to { left: -15vw; } }
-.hill {
-  position: fixed; border-radius: 50%; background: #6cc47c; border: var(--border);
-  border-bottom: none;
+.sun-glow {
+  position: fixed; top: 14vh; left: 50%; transform: translateX(-50%);
+  width: 560px; height: 420px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 154, 98, 0.35), transparent 65%);
+  pointer-events: none;
 }
-.h1 { width: 46vw; height: 19vh; left: -9vw; top: 29.5vh; }
-.h2 { width: 34vw; height: 14vh; right: -6vw; top: 32vh; background: #7fd08e; }
+.mountains { position: fixed; left: 0; right: 0; top: 0; height: 43.4vh; pointer-events: none; }
+.mountains svg { position: absolute; bottom: 0; width: 100%; height: 38%; display: block; }
+.cloud {
+  position: fixed; width: 220px; height: 54px; border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1); filter: blur(14px); pointer-events: none;
+  animation: drift linear infinite;
+}
+.cl1 { top: 10vh; animation-duration: 90s; }
+.cl2 { top: 20vh; width: 160px; animation-duration: 120s; animation-delay: -60s; }
+@keyframes drift { from { left: 105vw; } to { left: -20vw; } }
 
-/* ====== Road (pseudo-3D) ====== */
-.scene { position: fixed; inset: 0; perspective: 430px; perspective-origin: 50% 36vh; }
+/* ====== Road ====== */
+.scene { position: fixed; inset: 0; perspective: 460px; perspective-origin: 50% 43vh; }
 .road {
-  position: absolute; left: 50%; bottom: -6vh; width: 150vw; height: 130vh;
-  transform: translateX(-50%) rotateX(77deg); transform-origin: bottom center;
-  background: #43434f;
-  border-left: 14px solid #fff; border-right: 14px solid #fff;
-  box-shadow: 0 0 0 14px #43434f;
+  position: absolute; left: 50%; bottom: -8vh; width: 150vw; height: 135vh;
+  transform: translateX(-50%) rotateX(78deg); transform-origin: bottom center;
+  background: linear-gradient(180deg, #23283c 0%, #2c3147 60%, #343a55 100%);
+  border-left: 10px solid rgba(238, 241, 251, 0.85);
+  border-right: 10px solid rgba(238, 241, 251, 0.85);
+  box-shadow: 0 0 90px rgba(0, 0, 0, 0.55), inset 0 0 60px rgba(0, 0, 0, 0.4);
 }
 .road::before {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 26px;
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 22px;
   transform: translateX(-50%);
-  background: repeating-linear-gradient(0deg, var(--yellow) 0 70px, transparent 70px 150px);
+  background: repeating-linear-gradient(0deg, var(--yellow) 0 70px, transparent 70px 160px);
   background-position-y: var(--off, 0px);
+  filter: drop-shadow(0 0 8px rgba(255, 210, 63, 0.55));
+}
+.road::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255, 154, 98, 0.12), transparent 30%);
+}
+.headlight {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  top: 43vh; bottom: 12vh; width: 46vw; z-index: 90; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 244, 200, 0) 0%, rgba(255, 244, 200, 0.07) 80%);
+  clip-path: polygon(47% 0, 53% 0, 100% 100%, 0 100%);
 }
 
-/* ====== Projected objects (boards / trees) ====== */
+/* ====== Projected objects ====== */
 .obj { position: fixed; left: 0; top: 0; will-change: transform, opacity; pointer-events: none; }
 .board {
-  width: 330px; background: var(--card); border: var(--border); border-radius: 18px;
-  box-shadow: 7px 7px 0 var(--ink); overflow: hidden; text-align: left;
+  width: 440px; border-radius: 24px; overflow: hidden; position: relative;
+  background: linear-gradient(165deg, rgba(28, 34, 70, 0.97), rgba(13, 16, 36, 0.97));
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 36px 70px rgba(0, 0, 0, 0.6), 0 0 60px rgba(34, 211, 238, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
-.board .bd-head {
-  font-family: "Baloo 2", cursive; font-weight: 800; font-size: 1.18rem;
-  padding: 10px 16px; border-bottom: var(--border); display: flex; gap: 10px; align-items: center;
+.bd-accent { height: 7px; }
+.ac-sunset { background: linear-gradient(90deg, #ff2975, #ff8c42); }
+.ac-ocean { background: linear-gradient(90deg, #22d3ee, #4da6ff); }
+.ac-mint { background: linear-gradient(90deg, #34d399, #22d3ee); }
+.ac-violet { background: linear-gradient(90deg, #ff2975, #a78bfa); }
+.ac-gold { background: linear-gradient(90deg, #ffd23f, #ff8c42); }
+.bd-head {
+  display: flex; align-items: center; gap: 14px; padding: 20px 24px 12px;
+  font-family: "Sora", sans-serif; font-weight: 800; font-size: 1.35rem; letter-spacing: 0.01em;
 }
-.board .bd-body { padding: 12px 16px 14px; }
-.board .bd-body div { font-weight: 800; font-size: 1rem; padding: 3px 0; }
-.board .bd-body div::before { content: "▸ "; color: var(--pink); }
+.bd-head .ic {
+  width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 1.4rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+.ic-sunset { background: linear-gradient(135deg, #ff2975, #ff8c42); }
+.ic-ocean { background: linear-gradient(135deg, #22d3ee, #4da6ff); }
+.ic-mint { background: linear-gradient(135deg, #34d399, #22d3ee); }
+.ic-violet { background: linear-gradient(135deg, #ff2975, #a78bfa); }
+.ic-gold { background: linear-gradient(135deg, #ffd23f, #ff8c42); }
+.bd-body { padding: 6px 24px 22px; }
+.bd-body div {
+  font-weight: 600; font-size: 1.12rem; color: var(--muted);
+  padding: 9px 0; border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.bd-body div:first-child { border-top: none; }
+.bd-body div b { color: var(--text); }
 .board::after {
-  content: ""; position: absolute; left: 50%; bottom: -70px; width: 14px; height: 70px;
-  background: #8a5a2b; border: var(--border); transform: translateX(-50%);
+  content: ""; position: absolute; left: 50%; bottom: -84px; width: 11px; height: 84px;
+  transform: translateX(-50%); border-radius: 6px;
+  background: linear-gradient(180deg, #8e97ad, #3f4659);
 }
-.bh-yellow { background: var(--yellow); } .bh-blue { background: #a8d4ff; }
-.bh-pink { background: #ffc1d8; } .bh-green { background: #b3eec6; } .bh-orange { background: #ffd9ae; }
-.tree { font-size: 70px; filter: drop-shadow(4px 6px 0 rgba(26, 26, 26, 0.2)); }
+.lamp { position: relative; width: 14px; height: 150px; }
+.lamp .pole {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 7px; height: 150px; border-radius: 4px;
+  background: linear-gradient(180deg, #6d7791, #2e3445);
+}
+.lamp .head {
+  position: absolute; top: -4px; width: 46px; height: 12px; border-radius: 8px;
+  background: #39415a;
+}
+.lamp.l .head { left: 4px; } .lamp.r .head { right: 4px; }
+.lamp .bulb {
+  position: absolute; top: 8px; width: 18px; height: 10px; border-radius: 50%;
+  background: #fff3c4; box-shadow: 0 0 24px 10px rgba(255, 226, 130, 0.5);
+}
+.lamp.l .bulb { left: 26px; } .lamp.r .bulb { right: 26px; }
 
-/* ====== Bike ====== */
-.bike-wrap { position: fixed; left: 50%; bottom: 7vh; transform: translateX(-50%); z-index: 500; }
-.bike { font-size: 5.2rem; display: block; transform-origin: 50% 90%; animation: vroom 0.5s ease-in-out infinite alternate; filter: drop-shadow(6px 10px 0 rgba(26, 26, 26, 0.25)); }
-@keyframes vroom { from { transform: translateY(0); } to { transform: translateY(-4px); } }
-.bike-shadow { width: 110px; height: 16px; background: rgba(26, 26, 26, 0.3); border-radius: 50%; margin: -8px auto 0; }
+/* ====== Bike (SVG, rear view) ====== */
+.bike-wrap { position: fixed; left: 50%; bottom: 5.5vh; transform: translateX(-50%); z-index: 500; transition: rotate 0.1s; }
+.bike-bob { animation: bob 0.45s ease-in-out infinite alternate; }
+@keyframes bob { from { transform: translateY(0); } to { transform: translateY(-3.5px); } }
+.bike-shadow {
+  width: 150px; height: 18px; margin: -6px auto 0; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+}
 
 /* ====== HUD ====== */
-.hud-card {
-  position: fixed; background: var(--card); border: var(--border); border-radius: 16px;
-  box-shadow: 5px 5px 0 var(--ink); padding: 12px 18px; z-index: 600; font-weight: 800;
+.hud {
+  position: fixed; z-index: 600; border-radius: 18px; padding: 14px 18px;
+  background: var(--glass); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
 }
-.hud-keys { top: 18px; left: 18px; font-size: 0.9rem; line-height: 1.9; }
-.hud-keys .key {
-  display: inline-block; min-width: 30px; text-align: center; background: var(--yellow);
-  border: 2.5px solid var(--ink); border-radius: 8px; padding: 1px 7px;
-  box-shadow: 2.5px 2.5px 0 var(--ink); font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+.hud-keys { top: 18px; left: 18px; font-size: 0.86rem; font-weight: 600; line-height: 2.1; color: var(--muted); }
+kbd {
+  display: inline-block; min-width: 30px; text-align: center; color: var(--text);
+  background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px; padding: 2px 8px; font-family: "JetBrains Mono", monospace; font-size: 0.76rem;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.12) inset, 0 3px 6px rgba(0, 0, 0, 0.3);
+  cursor: default;
 }
-.hud-progress { top: 18px; right: 18px; min-width: 230px; }
-.hud-progress .dist { font-family: "Baloo 2", cursive; font-size: 1.05rem; }
-.prog-track { height: 14px; border: 2.5px solid var(--ink); border-radius: 100px; background: #eee; margin-top: 7px; overflow: hidden; }
-.prog-fill { height: 100%; width: 0%; background: repeating-linear-gradient(90deg, var(--yellow) 0 18px, var(--pink) 18px 36px, var(--blue) 36px 54px, var(--green) 54px 72px); transition: width 0.15s; }
-.hud-speed { bottom: 18px; right: 18px; font-family: "Baloo 2", cursive; font-size: 1.25rem; }
-.hud-speed small { font-size: 0.7rem; display: block; color: #666; text-align: center; }
-.back-link {
-  top: auto; bottom: 18px; left: 18px; text-decoration: none; color: var(--ink);
-  font-family: "Baloo 2", cursive; font-size: 1rem; transition: transform 0.15s;
-}
-.back-link:hover { transform: translate(-2px, -2px); }
 #soundBtn { cursor: pointer; }
+.hud-progress { top: 18px; right: 18px; min-width: 250px; }
+.hud-progress .dist { font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.95rem; display: flex; justify-content: space-between; gap: 14px; }
+.hud-progress .dist span:last-child { color: var(--cyan); }
+.prog-track { height: 8px; border-radius: 100px; background: rgba(255, 255, 255, 0.12); margin-top: 10px; position: relative; }
+.prog-dot {
+  position: absolute; top: 50%; width: 6px; height: 6px; border-radius: 50%;
+  transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.45); z-index: 2;
+}
+.prog-dot.hit { background: var(--yellow); box-shadow: 0 0 8px rgba(255, 210, 63, 0.9); }
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 250;
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, transparent 60%, rgba(5, 7, 18, 0.4) 100%);
+}
+.prog-fill {
+  height: 100%; width: 0%; border-radius: 100px;
+  background: linear-gradient(90deg, var(--cyan), var(--pink), var(--orange));
+  box-shadow: 0 0 12px rgba(255, 41, 117, 0.6); transition: width 0.15s;
+}
+.now-board {
+  margin-top: 9px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.78rem;
+  color: var(--yellow); letter-spacing: 0.06em; min-height: 1.2em;
+}
+.hud-speed { bottom: 18px; right: 18px; padding: 10px; }
+.gauge {
+  width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(from 220deg, var(--cyan) calc(var(--p, 0) * 1%), rgba(255, 255, 255, 0.1) 0 78%, transparent 78%);
+}
+.gauge-inner {
+  width: 74px; height: 74px; border-radius: 50%; background: #0d1024;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.gauge-inner b { font-family: "Sora", sans-serif; font-size: 1.5rem; line-height: 1; }
+.gauge-inner small { font-size: 0.58rem; letter-spacing: 0.14em; color: var(--muted); margin-top: 3px; }
+.back-link {
+  bottom: 18px; left: 18px; text-decoration: none; color: var(--text);
+  font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.92rem;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.back-link:hover { transform: translateY(-2px); border-color: rgba(34, 211, 238, 0.5); }
 
-/* ====== Intro / Finish overlays ====== */
+/* ====== Overlays ====== */
 .overlay {
   position: fixed; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center;
-  background: rgba(26, 26, 26, 0.35); backdrop-filter: blur(3px); transition: opacity 0.4s;
+  background: rgba(8, 10, 24, 0.55); backdrop-filter: blur(6px); transition: opacity 0.4s;
 }
 .overlay.hidden { opacity: 0; pointer-events: none; }
 .ov-card {
-  background: var(--card); border: 4px solid var(--ink); border-radius: 24px;
-  box-shadow: 10px 10px 0 var(--ink); padding: 44px 50px; text-align: center; max-width: 92vw;
+  background: linear-gradient(165deg, rgba(26, 31, 64, 0.96), rgba(13, 16, 36, 0.96));
+  border: 1px solid var(--glass-border); border-radius: 26px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6); padding: 46px 54px; text-align: center; max-width: 92vw;
   animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-@keyframes popIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.ov-card h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); margin-bottom: 10px; }
-.ov-card p { font-weight: 800; color: #555; margin-bottom: 8px; }
-.ov-card .big-key { font-size: 2.6rem; margin: 14px 0; animation: bounceKey 0.8s ease-in-out infinite alternate; }
+@keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.ov-card h1 {
+  font-size: clamp(1.7rem, 5vw, 2.5rem); margin-bottom: 12px;
+  background: linear-gradient(90deg, #ffd23f, #ff2975, #22d3ee);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ov-card p { font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+.ov-card .big-key { font-size: 2.4rem; margin: 16px 0 6px; animation: bounceKey 0.8s ease-in-out infinite alternate; }
 @keyframes bounceKey { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 .btn {
-  display: inline-block; margin: 8px 6px 0; text-decoration: none; color: var(--ink);
-  background: var(--yellow); border: var(--border); border-radius: 100px; padding: 11px 26px;
-  font-weight: 800; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; font-size: 1rem;
-  transition: transform 0.15s, box-shadow 0.15s;
+  display: inline-block; margin: 14px 6px 0; text-decoration: none; cursor: pointer;
+  font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.95rem; color: #0d1024;
+  background: linear-gradient(135deg, #ffd23f, #ff8c42); border: none; border-radius: 100px;
+  padding: 13px 30px; box-shadow: 0 12px 30px rgba(255, 140, 66, 0.4);
+  transition: transform 0.18s, box-shadow 0.18s;
 }
-.btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
-.btn-pink { background: var(--pink); }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(255, 140, 66, 0.55); }
+.btn-pink { background: linear-gradient(135deg, #ff2975, #a78bfa); color: #fff; box-shadow: 0 12px 30px rgba(255, 41, 117, 0.45); }
+.btn-ghost { background: rgba(255, 255, 255, 0.08); color: var(--text); border: 1px solid var(--glass-border); box-shadow: none; }
 
 /* ====== Mobile controls ====== */
-.touch-controls { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); display: none; gap: 18px; z-index: 700; }
+.touch-controls { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); display: none; gap: 20px; z-index: 700; }
 .tc-btn {
-  width: 74px; height: 74px; border-radius: 20px; background: var(--card); border: var(--border);
-  box-shadow: 5px 5px 0 var(--ink); font-size: 1.9rem; display: flex; align-items: center;
-  justify-content: center; cursor: pointer;
+  width: 78px; height: 78px; border-radius: 50%; font-size: 1.8rem; color: var(--text);
+  background: var(--glass); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
 }
-.tc-btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); background: var(--yellow); }
+.tc-btn:active { background: rgba(34, 211, 238, 0.25); transform: scale(0.94); }
 @media (pointer: coarse) {
   .touch-controls { display: flex; }
   .hud-keys { display: none; }
-  .board { width: 260px; }
-  .bike { font-size: 4rem; }
+  .board { width: 330px; }
+  .hud-speed { bottom: 110px; }
 }
 </style>
 </head>
 <body>
 
+<div class="stars"></div>
+<div class="sun-glow"></div>
 <div class="sun"></div>
-<span class="cloud c1">☁️</span>
-<span class="cloud c2">☁️</span>
-<span class="cloud c3">☁️</span>
-<div class="hill h1"></div>
-<div class="hill h2"></div>
-
-<div class="scene">
-  <div class="road" id="road"></div>
+<div class="cloud cl1"></div>
+<div class="cloud cl2"></div>
+<div class="mountains">
+  <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+    <path d="M0,200 L0,120 L140,60 L260,130 L400,40 L540,140 L700,70 L860,150 L1010,55 L1180,135 L1320,80 L1440,120 L1440,200 Z" fill="#1c1640" opacity="0.9"/>
+    <path d="M0,200 L0,160 L180,110 L330,165 L520,95 L720,170 L900,115 L1100,175 L1280,125 L1440,160 L1440,200 Z" fill="#120e2e"/>
+  </svg>
 </div>
 
+<div class="scene"><div class="road" id="road"></div></div>
+<div class="headlight"></div>
 <div id="world"></div>
 
+<!-- Premium SVG bike (rear view) -->
 <div class="bike-wrap" id="bikeWrap">
-  <span class="bike" id="bike">🏍️</span>
+  <div class="bike-bob">
+    <svg width="170" height="190" viewBox="0 0 170 190">
+      <defs>
+        <linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#ff2975"/><stop offset="1" stop-color="#ff8c42"/>
+        </linearGradient>
+        <linearGradient id="helmetG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#4da6ff"/>
+        </linearGradient>
+        <linearGradient id="jacketG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#262c45"/><stop offset="1" stop-color="#141829"/>
+        </linearGradient>
+      </defs>
+      <!-- exhaust glow -->
+      <ellipse id="exhaustGlow" cx="85" cy="182" rx="34" ry="9" fill="#ffb46a" opacity="0"/>
+      <!-- rear tire -->
+      <rect x="66" y="138" width="38" height="48" rx="17" fill="#0e1120"/>
+      <rect x="72" y="142" width="26" height="40" rx="12" fill="#1c2236"/>
+      <!-- exhausts -->
+      <rect x="48" y="146" width="13" height="30" rx="6" fill="#8e97ad"/>
+      <rect x="109" y="146" width="13" height="30" rx="6" fill="#8e97ad"/>
+      <!-- tail / body -->
+      <path d="M50,118 Q50,100 64,96 L106,96 Q120,100 120,118 L114,148 Q85,158 56,148 Z" fill="url(#bodyG)"/>
+      <!-- tail light -->
+      <rect id="brakeLight" x="64" y="124" width="42" height="10" rx="5" fill="#ff3b3b" opacity="0.55"/>
+      <!-- rider jacket -->
+      <path d="M52,100 Q50,52 85,46 Q120,52 118,100 Q85,114 52,100 Z" fill="url(#jacketG)"/>
+      <!-- jacket stripe -->
+      <path d="M80,47 L90,47 L90,106 L80,106 Z" fill="#22d3ee" opacity="0.85"/>
+      <!-- arms -->
+      <path d="M55,62 Q30,72 26,92 L36,98 Q44,80 62,72 Z" fill="#1b2034"/>
+      <path d="M115,62 Q140,72 144,92 L134,98 Q126,80 108,72 Z" fill="#1b2034"/>
+      <!-- gloves -->
+      <circle cx="30" cy="96" r="8" fill="#ff8c42"/>
+      <circle cx="140" cy="96" r="8" fill="#ff8c42"/>
+      <!-- mirrors -->
+      <line x1="34" y1="90" x2="22" y2="66" stroke="#39415a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="136" y1="90" x2="148" y2="66" stroke="#39415a" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="20" cy="62" rx="7" ry="5" fill="#39415a"/>
+      <ellipse cx="150" cy="62" rx="7" ry="5" fill="#39415a"/>
+      <!-- helmet -->
+      <circle cx="85" cy="32" r="22" fill="url(#helmetG)"/>
+      <path d="M63,32 a22,22 0 0 1 44,0 l0,6 a22,14 0 0 1 -44,0 Z" fill="none"/>
+      <rect x="67" y="34" width="36" height="8" rx="4" fill="#0e1120" opacity="0.85"/>
+      <ellipse cx="85" cy="20" rx="14" ry="5" fill="#ffffff" opacity="0.28"/>
+    </svg>
+  </div>
   <div class="bike-shadow"></div>
 </div>
 
 <!-- HUD -->
-<div class="hud-card hud-keys">
-  <span class="key">↑</span> / <span class="key">W</span> &nbsp;Drive forward<br />
-  <span class="key">↓</span> / <span class="key">S</span> &nbsp;Brake / Reverse<br />
-  <span class="key" id="soundBtn">🔊</span> &nbsp;Engine sound
+<div class="hud hud-keys">
+  <kbd>↑</kbd> / <kbd>W</kbd> &nbsp;Accelerate<br />
+  <kbd>↓</kbd> / <kbd>S</kbd> &nbsp;Brake / Reverse<br />
+  <kbd id="soundBtn">🔊</kbd> &nbsp;Engine sound
 </div>
-<div class="hud-card hud-progress">
-  <div class="dist" id="distLabel">📍 0.00 / 2.10 km</div>
-  <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+<div class="hud hud-progress">
+  <div class="dist"><span>📍 RESUME ROAD</span><span id="distLabel">0.00 / 2.10 km</span></div>
+  <div class="prog-track" id="progTrack"><div class="prog-fill" id="progFill"></div></div>
+  <div class="now-board" id="nowBoard">START — press ↑</div>
 </div>
-<div class="hud-card hud-speed"><span id="speedLabel">0</span> km/h<small>SPEED</small></div>
-<a class="hud-card back-link" href="index.html">← Back to Portfolio</a>
+<div class="hud hud-speed">
+  <div class="gauge" id="gauge">
+    <div class="gauge-inner"><b id="speedLabel">0</b><small>KM/H</small></div>
+  </div>
+</div>
+<a class="hud back-link" href="index.html">← Portfolio</a>
 
 <div class="touch-controls">
   <div class="tc-btn" id="tcDown">▼</div>
@@ -195,50 +363,51 @@ h1, h2, h3, .btn { font-family: "Baloo 2", cursive; }
 <!-- Intro -->
 <div class="overlay" id="intro">
   <div class="ov-card">
-    <h1>🏍️ Akash's Resume Ride</h1>
-    <p>Ride down the road — my whole resume is on the boards along the way!</p>
+    <h1>RESUME RIDE</h1>
+    <p>Akash Goyal · Flutter Developer</p>
+    <p>My whole resume is on the billboards along this road.</p>
     <div class="big-key">⬆️</div>
-    <p>Press <b>↑</b> (or hold ▲ on mobile) to start riding</p>
-    <button class="btn" id="startBtn">Start Engine 🔑</button>
+    <p>Press <kbd>↑</kbd> to ride &nbsp;·&nbsp; hold <b>▲</b> on mobile</p>
+    <button class="btn" id="startBtn">🔑 Start Engine</button>
   </div>
 </div>
 
 <!-- Finish -->
 <div class="overlay hidden" id="finish">
   <div class="ov-card">
-    <h1>🏁 You made it!</h1>
-    <p>That was my journey — 4+ years, 5 companies, 15+ apps.</p>
-    <p>Liked the ride? Let's build something together!</p>
+    <h1>🏁 FINISH LINE!</h1>
+    <p>That was the journey — 4+ years, 5 companies, 15+ apps.</p>
+    <p>Liked the ride? Let's build something together.</p>
     <a class="btn btn-pink" href="mailto:ak.goyal1998@gmail.com">📧 Hire Me</a>
-    <a class="btn" href="index.html">🎨 Full Portfolio</a>
-    <button class="btn" id="againBtn">🔄 Ride Again</button>
+    <a class="btn" href="index.html">Full Portfolio</a>
+    <button class="btn btn-ghost" id="againBtn">🔄 Ride Again</button>
   </div>
 </div>
 
 <script>
 // ================== RESUME BOARDS ==================
 const BOARDS = [
-  { d: 150, side: 1, icon: "👋", head: "WELCOME", color: "bh-yellow", lines: ["Akash Goyal", "Flutter Developer", "Noida, India 🇮🇳", "Keep riding! →"] },
-  { d: 300, side: -1, icon: "🛠️", head: "SKILLS", color: "bh-blue", lines: ["Flutter & Dart", "GetX • Provider", "Firebase • REST APIs", "Razorpay Payments"] },
-  { d: 450, side: 1, icon: "💼", head: "NOW (2024–...)", color: "bh-green", lines: ["Preview Technologies", "Flutter Developer", "Dec 2024 – Present", "Noida, UP"] },
-  { d: 600, side: -1, icon: "💼", head: "2023 – 2024", color: "bh-green", lines: ["NextGen AI Frameworks", "Flutter Developer", "AI-powered apps", "Delhi"] },
-  { d: 750, side: 1, icon: "💼", head: "2022 – 2023", color: "bh-green", lines: ["Techjeux Pvt Ltd", "Built Super 4 🏏", "Fantasy cricket app", "Real-time scoring"] },
-  { d: 900, side: -1, icon: "💼", head: "2023", color: "bh-green", lines: ["Super4 · Delhi", "Live match data", "Push notifications", "60fps at scale"] },
-  { d: 1050, side: 1, icon: "💼", head: "2022 · FIRST JOB", color: "bh-green", lines: ["30Days Technologies", "Mobile App Developer", "Client apps end-to-end", "Bahadurgarh, HR"] },
-  { d: 1200, side: -1, icon: "📱", head: "APP: EZHRM", color: "bh-pink", lines: ["HR & Payroll suite", "Face-ID attendance", "Geo-location check-in", "Play + App Store ✓"] },
-  { d: 1350, side: 1, icon: "📱", head: "APP: EZCRM", color: "bh-pink", lines: ["Sales CRM", "WhatsApp lead capture", "Pipeline tracking"] },
-  { d: 1500, side: -1, icon: "📱", head: "APP: EZNEXT", color: "bh-pink", lines: ["Complete School ERP", "Live online classes", "Online exams & fees"] },
-  { d: 1650, side: 1, icon: "📱", head: "APP: COBI", color: "bh-pink", lines: ["Industry confederation", "Job portal", "Member registration"] },
-  { d: 1800, side: -1, icon: "🏆", head: "STATS", color: "bh-orange", lines: ["4+ Years experience", "15+ Apps shipped", "50K+ Downloads"] },
-  { d: 1950, side: 1, icon: "📬", head: "CONTACT", color: "bh-yellow", lines: ["ak.goyal1998@gmail.com", "github.com/codebyAG", "LinkedIn:", "akash-goyal-flutter"] },
+  { d: 150, side: 1, icon: "👋", head: "WELCOME", ac: "sunset", lines: ["<b>Akash Goyal</b>", "Flutter Developer", "Noida, India 🇮🇳", "Keep riding →"] },
+  { d: 300, side: -1, icon: "🛠️", head: "SKILLS", ac: "ocean", lines: ["<b>Flutter & Dart</b>", "GetX · Provider", "Firebase · REST APIs", "Razorpay Payments"] },
+  { d: 450, side: 1, icon: "💼", head: "NOW · 2024 —", ac: "mint", lines: ["<b>Preview Technologies</b>", "Flutter Developer", "Dec 2024 – Present", "Noida, UP"] },
+  { d: 600, side: -1, icon: "💼", head: "2023 – 2024", ac: "mint", lines: ["<b>NextGen AI Frameworks</b>", "Flutter Developer", "AI-powered apps", "Delhi"] },
+  { d: 750, side: 1, icon: "💼", head: "2022 – 2023", ac: "mint", lines: ["<b>Techjeux Pvt Ltd</b>", "Built Super 4 🏏", "Fantasy cricket app", "Real-time scoring"] },
+  { d: 900, side: -1, icon: "💼", head: "2023", ac: "mint", lines: ["<b>Super4 · Delhi</b>", "Live match data", "Push notifications", "60fps at scale"] },
+  { d: 1050, side: 1, icon: "💼", head: "2022 · FIRST JOB", ac: "mint", lines: ["<b>30Days Technologies</b>", "Mobile App Developer", "Client apps end-to-end", "Bahadurgarh, HR"] },
+  { d: 1200, side: -1, icon: "📱", head: "APP · EZHRM", ac: "violet", lines: ["<b>HR & Payroll suite</b>", "Face-ID attendance", "Geo-location check-in", "Play + App Store ✓"] },
+  { d: 1350, side: 1, icon: "📱", head: "APP · EZCRM", ac: "violet", lines: ["<b>Sales CRM</b>", "WhatsApp lead capture", "Pipeline tracking"] },
+  { d: 1500, side: -1, icon: "📱", head: "APP · EZNEXT", ac: "violet", lines: ["<b>Complete School ERP</b>", "Live online classes", "Online exams & fees"] },
+  { d: 1650, side: 1, icon: "📱", head: "APP · COBI", ac: "violet", lines: ["<b>Industry confederation</b>", "Job portal", "Member registration"] },
+  { d: 1800, side: -1, icon: "🏆", head: "STATS", ac: "gold", lines: ["<b>4+ Years</b> experience", "<b>15+ Apps</b> shipped", "<b>50K+</b> Downloads"] },
+  { d: 1950, side: 1, icon: "📬", head: "CONTACT", ac: "gold", lines: ["<b>ak.goyal1998@gmail.com</b>", "github.com/codebyAG", "in/akash-goyal-flutter"] },
 ];
 const MAX_D = 2100;
 const VIEW = 540;
 
-// trees for depth
-const TREES = [];
-for (let d = 80; d < MAX_D; d += 95) {
-  TREES.push({ d, side: (d / 95) % 2 ? 1 : -1, emoji: d % 3 ? "🌳" : "🌴" });
+// streetlights for depth
+const LAMPS = [];
+for (let d = 90; d < MAX_D; d += 130) {
+  LAMPS.push({ d, side: (d / 130) % 2 ? 1 : -1 });
 }
 
 // ================== BUILD DOM ==================
@@ -248,28 +417,43 @@ BOARDS.forEach((b) => {
   const el = document.createElement("div");
   el.className = "obj";
   el.innerHTML =
-    '<div class="board"><div class="bd-head ' + b.color + '"><span>' + b.icon + "</span> " + b.head +
-    '</div><div class="bd-body">' + b.lines.map((l) => "<div>" + l + "</div>").join("") + "</div></div>";
+    '<div class="board"><div class="bd-accent ac-' + b.ac + '"></div>' +
+    '<div class="bd-head"><span class="ic ic-' + b.ac + '">' + b.icon + "</span>" + b.head + "</div>" +
+    '<div class="bd-body">' + b.lines.map((l) => "<div>" + l + "</div>").join("") + "</div></div>";
   el.style.display = "none";
   world.appendChild(el);
-  objs.push({ d: b.d, side: b.side, el, w: 330 });
+  objs.push({ d: b.d, side: b.side, el });
 });
-TREES.forEach((t) => {
+LAMPS.forEach((t) => {
   const el = document.createElement("div");
-  el.className = "obj tree";
-  el.textContent = t.emoji;
+  el.className = "obj";
+  el.innerHTML = '<div class="lamp ' + (t.side > 0 ? "r" : "l") + '"><div class="pole"></div><div class="head"></div><div class="bulb"></div></div>';
   el.style.display = "none";
   world.appendChild(el);
-  objs.push({ d: t.d, side: t.side * 1.55, el, w: 70, tree: true });
+  objs.push({ d: t.d, side: t.side * 1.5, el, lamp: true });
 });
 
 // ================== PHYSICS & RENDER ==================
 let dist = 0, speed = 0, up = false, down = false, started = false, finished = false;
 const road = document.getElementById("road");
-const bike = document.getElementById("bike");
+const bikeWrap = document.getElementById("bikeWrap");
 const distLabel = document.getElementById("distLabel");
 const progFill = document.getElementById("progFill");
 const speedLabel = document.getElementById("speedLabel");
+const gauge = document.getElementById("gauge");
+const brakeLight = document.getElementById("brakeLight");
+const exhaustGlow = document.getElementById("exhaustGlow");
+const nowBoard = document.getElementById("nowBoard");
+
+// board markers on progress bar
+const progTrack = document.getElementById("progTrack");
+const dotEls = BOARDS.map((b) => {
+  const dot = document.createElement("span");
+  dot.className = "prog-dot";
+  dot.style.left = (b.d / MAX_D) * 100 + "%";
+  progTrack.appendChild(dot);
+  return dot;
+});
 
 function project(o) {
   const rel = o.d - dist;
@@ -277,14 +461,15 @@ function project(o) {
   o.el.style.display = "block";
   let t = 1 - rel / VIEW;
   if (t > 1.35) t = 1.35;
-  const scale = 0.07 + Math.pow(Math.max(t, 0), 2.1) * (o.tree ? 1.5 : 1.06);
-  const yvh = 35.5 + Math.pow(Math.max(t, 0), 1.65) * 60;
-  const xvw = 50 + o.side * (3.5 + Math.pow(Math.max(t, 0), 1.9) * 36);
+  const tt = Math.max(t, 0);
+  const scale = 0.06 + Math.pow(tt, 2.1) * (o.lamp ? 1.45 : 1.16);
+  const yvh = 42.8 + Math.pow(tt, 1.65) * 54;
+  const xvw = 50 + o.side * (3.5 + Math.pow(tt, 1.9) * 36);
   o.el.style.transform =
     "translate(" + (xvw * window.innerWidth) / 100 + "px," + (yvh * window.innerHeight) / 100 +
     "px) translate(-50%, -100%) scale(" + scale + ")";
   o.el.style.zIndex = 100 + Math.round(t * 100);
-  o.el.style.opacity = t < 0.12 ? (t / 0.12).toFixed(2) : t > 1.04 ? Math.max(0, 1 - (t - 1.04) * 4).toFixed(2) : 1;
+  o.el.style.opacity = t < 0.14 ? (t / 0.14).toFixed(2) : t > 1.04 ? Math.max(0, 1 - (t - 1.04) * 4).toFixed(2) : 1;
 }
 
 let roadOff = 0;
@@ -299,15 +484,28 @@ function loop() {
   if (dist < 0) { dist = 0; speed = 0; }
   if (dist > MAX_D) { dist = MAX_D; speed = 0; }
 
-  roadOff += speed * 5.2;
+  roadOff += speed * 5.4;
   road.style.setProperty("--off", roadOff + "px");
-  bike.style.rotate = (-speed * 1.3) + "deg";
+  bikeWrap.style.rotate = (-speed * 0.9) + "deg";
+  brakeLight.style.opacity = down ? 1 : 0.45;
+  exhaustGlow.style.opacity = up ? Math.min(0.5, Math.abs(speed) / 12) : 0;
 
   objs.forEach(project);
 
-  distLabel.textContent = "📍 " + (dist / 1000).toFixed(2) + " / " + (MAX_D / 1000).toFixed(2) + " km";
+  const kmh = Math.abs(Math.round(speed * 14));
+  distLabel.textContent = (dist / 1000).toFixed(2) + " / " + (MAX_D / 1000).toFixed(2) + " km";
   progFill.style.width = (dist / MAX_D) * 100 + "%";
-  speedLabel.textContent = Math.abs(Math.round(speed * 14));
+  speedLabel.textContent = kmh;
+  gauge.style.setProperty("--p", Math.min(78, (kmh / 140) * 78));
+
+  // current section + lit markers
+  let current = null;
+  BOARDS.forEach((b, i) => {
+    const passed = dist >= b.d - 60;
+    dotEls[i].classList.toggle("hit", passed);
+    if (passed) current = b;
+  });
+  nowBoard.textContent = current ? current.icon + " " + current.head : "START — press ↑";
 
   engineUpdate();
 
@@ -347,25 +545,25 @@ const tcUp = document.getElementById("tcUp"), tcDown = document.getElementById("
   tcDown.addEventListener(ev, () => { down = false; });
 });
 
-// ================== ENGINE SOUND (Web Audio) ==================
-let soundOn = true, actx = null, osc = null, gain = null;
+// ================== ENGINE SOUND ==================
+let soundOn = true, actx = null, osc = null, gainN = null;
 function engineStart() {
   if (actx) return;
   try {
     actx = new (window.AudioContext || window.webkitAudioContext)();
     osc = actx.createOscillator();
-    gain = actx.createGain();
+    gainN = actx.createGain();
     osc.type = "sawtooth";
     osc.frequency.value = 55;
-    gain.gain.value = 0;
-    osc.connect(gain); gain.connect(actx.destination);
+    gainN.gain.value = 0;
+    osc.connect(gainN); gainN.connect(actx.destination);
     osc.start();
   } catch (e) {}
 }
 function engineUpdate() {
-  if (!actx || !gain) return;
-  const target = soundOn && Math.abs(speed) > 0.15 ? 0.035 : 0;
-  gain.gain.setTargetAtTime(target, actx.currentTime, 0.08);
+  if (!actx || !gainN) return;
+  const target = soundOn && Math.abs(speed) > 0.15 ? 0.032 : 0;
+  gainN.gain.setTargetAtTime(target, actx.currentTime, 0.08);
   osc.frequency.setTargetAtTime(55 + Math.abs(speed) * 16, actx.currentTime, 0.06);
 }
 document.getElementById("soundBtn").addEventListener("click", function () {
