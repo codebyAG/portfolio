@@ -1,0 +1,43 @@
+# ============================================================
+# CI/CD Pipeline: GitHub -> Netlify auto-deploy
+# Jab bhi `main` branch pe code push hoga, ye pipeline:
+#   1. Code checkout karegi (repo ki copy runner pe laayegi)
+#   2. Site folder taiyaar karegi (build step)
+#   3. Netlify pe production deploy karegi
+# ============================================================
+
+name: Deploy to Netlify
+
+# TRIGGER: ye pipeline kab chale?
+# "push" event on "main" branch = har push pe auto-run
+on:
+  push:
+    branches: [main]
+  # Actions tab se manually bhi chala sakte ho:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    # RUNNER: GitHub ka free Linux server jis pe steps chalenge
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: repo ka code runner pe download karo
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: "build" — jo files publish karni hain unka folder banao
+      # (abhi sirf index.html hai; future mein yahan minify/build commands aa sakti hain)
+      - name: 🔨 Prepare site folder
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+
+      # Step 3: Netlify pe deploy
+      # Secrets GitHub repo settings me encrypted store hain —
+      # code me kabhi token mat likhna!
+      - name: 🚀 Deploy to Netlify (production)
+        run: npx netlify-cli@17 deploy --prod --dir _site --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --message "CI deploy: ${{ github.event.head_commit.message }}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
