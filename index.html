@@ -230,33 +230,56 @@ nav {
 .marquee-track span::after { content: "★"; font-size: 0.85rem; }
 @keyframes scroll-x { to { transform: translateX(-50%); } }
 
-/* ====== Scrollytelling showcase ====== */
-.showcase-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-.showcase-steps .step {
-  min-height: 92vh; display: flex; flex-direction: column; justify-content: center;
-  opacity: 0.25; transform: translateX(-12px) scale(0.98); transition: opacity 0.5s, transform 0.5s;
+/* ====== Alternating timeline showcase ====== */
+.sc-timeline { position: relative; }
+.sc-timeline::before {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 6px;
+  transform: translateX(-50%); background: rgba(26, 26, 26, 0.12); border-radius: 6px;
 }
-.showcase-steps .step.on { opacity: 1; transform: translateX(0) scale(1); }
-.step .step-num {
+#scLine {
+  position: absolute; left: 50%; top: 0; width: 6px; transform: translateX(-50%);
+  background: repeating-linear-gradient(180deg, var(--pink) 0 40px, var(--blue) 40px 80px, var(--green) 80px 120px, var(--orange) 120px 160px);
+  border-radius: 6px; height: 0; z-index: 1;
+}
+.sc-item {
+  display: grid; grid-template-columns: 1fr 90px 1fr; align-items: center;
+  padding: 55px 0; position: relative;
+}
+.sc-dot {
+  grid-column: 2; grid-row: 1; justify-self: center; width: 44px; height: 44px;
+  border-radius: 50%; border: var(--border); background: var(--yellow);
+  box-shadow: 3px 3px 0 var(--ink); z-index: 2; display: flex; align-items: center;
+  justify-content: center; font-size: 1.15rem; transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.sc-item.seen .sc-dot { transform: scale(1); }
+.sc-media { grid-column: 1; grid-row: 1; justify-self: center; opacity: 0; transform: translateX(-70px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.sc-text { grid-column: 3; grid-row: 1; opacity: 0; transform: translateX(70px); transition: opacity 0.7s ease 0.12s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s; }
+.sc-item:nth-child(even) .sc-media { grid-column: 3; transform: translateX(70px); }
+.sc-item:nth-child(even) .sc-text { grid-column: 1; text-align: right; transform: translateX(-70px); }
+.sc-item:nth-child(even) .sc-text .chips { justify-content: flex-end; }
+.sc-item:nth-child(even) .sc-text p { margin-left: auto; }
+.sc-item.seen .sc-media, .sc-item.seen .sc-text { opacity: 1; transform: translateX(0); }
+.sc-item:nth-child(odd) .sp-phone { transform: rotate(-3deg); }
+.sc-item:nth-child(even) .sp-phone { transform: rotate(3deg); }
+.step-num {
   font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 0.8rem;
   background: var(--card); border: 2.5px solid var(--ink); border-radius: 100px;
   display: inline-block; width: max-content; padding: 5px 14px; box-shadow: 3px 3px 0 var(--ink); margin-bottom: 16px;
 }
-.step h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; margin-bottom: 12px; }
-.step p { color: #555; font-weight: 600; max-width: 440px; margin-bottom: 18px; }
-.showcase-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
+.sc-text h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; margin-bottom: 12px; }
+.sc-text p { color: #555; font-weight: 600; max-width: 440px; margin-bottom: 18px; }
 .sp-phone {
-  width: 270px; height: 560px; border-radius: 44px; position: relative;
+  width: 250px; height: 520px; border-radius: 42px; position: relative;
   background: var(--card); border: 4px solid var(--ink); padding: 11px;
-  box-shadow: 10px 10px 0 var(--ink); transition: background 0.6s;
+  box-shadow: 10px 10px 0 var(--ink); transition: transform 0.3s;
 }
+.sc-item .sp-phone:hover { transform: rotate(0deg) scale(1.03); }
 .sp-screen {
-  position: absolute; inset: 11px; border-radius: 34px; overflow: hidden;
-  border: 3px solid var(--ink); opacity: 0; transform: translateY(46px) scale(0.94);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  display: flex; flex-direction: column; pointer-events: none; background: #fffdf5;
+  position: absolute; inset: 11px; border-radius: 32px; overflow: hidden;
+  border: 3px solid var(--ink); display: flex; flex-direction: column;
+  pointer-events: none; background: #fffdf5;
 }
-.sp-screen.active { opacity: 1; transform: translateY(0) scale(1); }
 .sp-head { padding: 30px 16px 13px; border-bottom: 3px solid var(--ink); }
 .sp-head .t { font-family: "Baloo 2", cursive; font-weight: 800; font-size: 1.05rem; }
 .sp-head .s { font-size: 0.72rem; font-weight: 700; }
@@ -278,8 +301,8 @@ nav {
 .tag-ok { background: #c9f2d8; }
 .tag-hot { background: #ffe2c4; }
 .sp-bar-track { height: 9px; border-radius: 100px; background: #eee; border: 2px solid var(--ink); margin-top: 8px; overflow: hidden; }
-.sp-bar-fill { height: 100%; background: var(--yellow); width: 0%; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s; }
-.sp-screen.active .sp-bar-fill { width: var(--w, 80%); }
+.sp-bar-fill { height: 100%; background: var(--yellow); width: 0%; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s; }
+.sc-item.seen .sp-bar-fill { width: var(--w, 80%); }
 
 /* ====== About ====== */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -409,9 +432,14 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
   .about-grid { grid-template-columns: 1fr; gap: 44px; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .projects-grid { grid-template-columns: 1fr; }
-  .showcase-wrap { grid-template-columns: 1fr; }
-  .showcase-sticky { display: none; }
-  .showcase-steps .step { min-height: unset; padding: 36px 0; opacity: 1; transform: none; }
+  .sc-timeline::before, #scLine { left: 26px; transform: none; }
+  .sc-item { grid-template-columns: 56px 1fr; gap: 10px 14px; padding: 40px 0; }
+  .sc-dot { grid-column: 1; grid-row: 1; width: 38px; height: 38px; font-size: 1rem; }
+  .sc-media { grid-column: 2 !important; grid-row: 2; justify-self: start; }
+  .sc-text { grid-column: 2 !important; grid-row: 1; text-align: left !important; }
+  .sc-item:nth-child(even) .sc-text .chips { justify-content: flex-start; }
+  .sc-item:nth-child(even) .sc-text p { margin-left: 0; }
+  .sp-phone { width: 220px; height: 460px; }
   .doodle { display: none; }
 }
 @media (max-width: 680px) {
@@ -525,37 +553,13 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
     <div class="reveal"><span class="section-tag">// one-codebase-every-industry</span></div>
     <h2 class="section-title reveal">One codebase. <span class="hl hl-green">Every industry.</span></h2>
     <p class="section-sub reveal">Scroll down — same phone, same Flutter, a completely different app every time. That's my superpower! 💪</p>
-    <div class="showcase-wrap">
-      <div class="showcase-steps" id="showcaseSteps">
-        <div class="step" data-screen="0">
-          <div class="step-num">01 / GAMING</div>
-          <h3>Real-time fantasy gaming 🏏</h3>
-          <p>Super 4 — live cricket scores streaming over sockets, matchmaking lobbies and leaderboards updating every ball, at a smooth 60fps for thousands of players.</p>
-          <div class="chips"><span class="chip">Sockets</span><span class="chip">Live Data</span><span class="chip">GetX</span></div>
-        </div>
-        <div class="step" data-screen="1">
-          <div class="step-num">02 / ENTERPRISE</div>
-          <h3>HR that fits in a pocket 💼</h3>
-          <p>EZHRM — employees check in with face recognition and geo-location, view salary slips and apply for leave. Heavy enterprise workflows, zero clunky UI.</p>
-          <div class="chips"><span class="chip">Face Recognition</span><span class="chip">Geo-Location</span><span class="chip">Payroll</span></div>
-        </div>
-        <div class="step" data-screen="2">
-          <div class="step-num">03 / BUSINESS</div>
-          <h3>Sales pipelines on the go 📈</h3>
-          <p>EZCRM — leads flow in from WhatsApp, Facebook and IndiaMart, get assigned in seconds, and follow-ups never slip. A full CRM in the sales team's hand.</p>
-          <div class="chips"><span class="chip">Lead Capture</span><span class="chip">Follow-ups</span><span class="chip">REST APIs</span></div>
-        </div>
-        <div class="step" data-screen="3">
-          <div class="step-num">04 / EDUCATION</div>
-          <h3>A whole school in an app 🎓</h3>
-          <p>EZNEXT — students join live classes, submit homework, take online exams and pay fees with Razorpay. Parents and teachers get their own views, same codebase.</p>
-          <div class="chips"><span class="chip">Live Classes</span><span class="chip">Razorpay</span><span class="chip">Exams</span></div>
-        </div>
-      </div>
-      <div class="showcase-visual">
-        <div class="showcase-sticky">
-          <div class="sp-phone" id="spPhone">
-            <div class="sp-screen sc-0 active">
+    <div class="sc-timeline" id="scTimeline">
+      <div id="scLine"></div>
+
+      <div class="sc-item">
+        <div class="sc-media">
+          <div class="sp-phone">
+            <div class="sp-screen sc-0">
               <div class="sp-head"><div class="t">Super 4 🏏</div><div class="s">IND vs AUS · T20</div></div>
               <div class="sp-body">
                 <div class="sp-card">
@@ -569,6 +573,20 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
                 <div class="sp-row"><b>Your Team</b><span class="tag tag-hot">↑ 12 ranks</span></div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="sc-dot">🏏</div>
+        <div class="sc-text">
+          <div class="step-num">01 / GAMING</div>
+          <h3>Real-time fantasy gaming</h3>
+          <p>Super 4 — live cricket scores streaming over sockets, matchmaking lobbies and leaderboards updating every ball, at a smooth 60fps for thousands of players.</p>
+          <div class="chips"><span class="chip">Sockets</span><span class="chip">Live Data</span><span class="chip">GetX</span></div>
+        </div>
+      </div>
+
+      <div class="sc-item">
+        <div class="sc-media">
+          <div class="sp-phone">
             <div class="sp-screen sc-1">
               <div class="sp-head"><div class="t">EZHRM 💼</div><div class="s">Good morning, Akash</div></div>
               <div class="sp-body">
@@ -583,6 +601,20 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
                 <div class="sp-row"><b>Team Today</b><span>18 / 20 in</span></div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="sc-dot">💼</div>
+        <div class="sc-text">
+          <div class="step-num">02 / ENTERPRISE</div>
+          <h3>HR that fits in a pocket</h3>
+          <p>EZHRM — employees check in with face recognition and geo-location, view salary slips and apply for leave. Heavy enterprise workflows, zero clunky UI.</p>
+          <div class="chips"><span class="chip">Face Recognition</span><span class="chip">Geo-Location</span><span class="chip">Payroll</span></div>
+        </div>
+      </div>
+
+      <div class="sc-item">
+        <div class="sc-media">
+          <div class="sp-phone">
             <div class="sp-screen sc-2">
               <div class="sp-head"><div class="t">EZCRM 📈</div><div class="s">Pipeline · June</div></div>
               <div class="sp-body">
@@ -597,6 +629,20 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
                 <div class="sp-row"><b>Gupta Steels</b><span>Quote sent</span></div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="sc-dot">📈</div>
+        <div class="sc-text">
+          <div class="step-num">03 / BUSINESS</div>
+          <h3>Sales pipelines on the go</h3>
+          <p>EZCRM — leads flow in from WhatsApp, Facebook and IndiaMart, get assigned in seconds, and follow-ups never slip. A full CRM in the sales team's hand.</p>
+          <div class="chips"><span class="chip">Lead Capture</span><span class="chip">Follow-ups</span><span class="chip">REST APIs</span></div>
+        </div>
+      </div>
+
+      <div class="sc-item">
+        <div class="sc-media">
+          <div class="sp-phone">
             <div class="sp-screen sc-3">
               <div class="sp-head"><div class="t">EZNEXT 🎓</div><div class="s">Class X-B · Today</div></div>
               <div class="sp-body">
@@ -612,6 +658,13 @@ footer { border-top: var(--border); padding: 28px 0; text-align: center; font-we
               </div>
             </div>
           </div>
+        </div>
+        <div class="sc-dot">🎓</div>
+        <div class="sc-text">
+          <div class="step-num">04 / EDUCATION</div>
+          <h3>A whole school in an app</h3>
+          <p>EZNEXT — students join live classes, submit homework, take online exams and pay fees with Razorpay. Parents and teachers get their own views, same codebase.</p>
+          <div class="chips"><span class="chip">Live Classes</span><span class="chip">Razorpay</span><span class="chip">Exams</span></div>
         </div>
       </div>
     </div>
@@ -929,21 +982,27 @@ window.addEventListener("scroll", () => {
   progressBar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
 }, { passive: true });
 
-// ---- Scrollytelling: sticky phone switches apps ----
-const spPhone = document.getElementById("spPhone");
-if (spPhone) {
-  const steps = document.querySelectorAll("#showcaseSteps .step");
-  const screens = spPhone.querySelectorAll(".sp-screen");
-  const stepObserver = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const idx = +e.target.dataset.screen;
-      steps.forEach((s) => s.classList.remove("on"));
-      e.target.classList.add("on");
-      screens.forEach((s, i) => s.classList.toggle("active", i === idx));
+// ---- Animated timeline showcase ----
+const scTimeline = document.getElementById("scTimeline");
+if (scTimeline) {
+  const scLine = document.getElementById("scLine");
+  const items = scTimeline.querySelectorAll(".sc-item");
+
+  // line fills as you scroll through the section
+  function updateLine() {
+    const rect = scTimeline.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.65;
+    const progress = Math.min(Math.max(trigger - rect.top, 0), rect.height);
+    scLine.style.height = progress + "px";
+    // light up dots the line has passed
+    items.forEach((item) => {
+      const r = item.getBoundingClientRect();
+      if (r.top + r.height * 0.35 < trigger) item.classList.add("seen");
     });
-  }, { threshold: 0.55 });
-  steps.forEach((s) => stepObserver.observe(s));
+  }
+  window.addEventListener("scroll", updateLine, { passive: true });
+  window.addEventListener("resize", updateLine);
+  updateLine();
 }
 </script>
 </body>
